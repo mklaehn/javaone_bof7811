@@ -1,0 +1,26 @@
+apply plugin: 'base' // To add "clean" task to the root project.
+
+subprojects {
+    apply from: rootProject.file('common.gradle')
+}
+
+project (':definition') {
+    apply plugin: 'java'
+}
+
+project (':usage') {
+    apply plugin: 'java'
+    
+    dependencies {
+        compile project(':processor')
+        compile project(':definition')
+    }
+}
+
+project (':processor') {
+    apply plugin: 'java'
+    
+    dependencies {
+        compile project(':definition')
+    }
+}
